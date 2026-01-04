@@ -1,13 +1,21 @@
 # app.py
 # -*- coding: utf-8 -*-
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-from io import BytesIO
-import re
-from datetime import datetime
-import numpy as np
+import sys, traceback
+try:
+    import streamlit as st
+    import pandas as pd
+    import plotly.express as px
+    import plotly.graph_objects as go
+    from io import BytesIO
+    import re
+    from datetime import datetime
+    import numpy as np
+    # لاگ موفقیت
+    print("✅ All imports successful", file=sys.stderr)
+except Exception as e:
+    print("🔴 Startup import error:", e, file=sys.stderr)
+    traceback.print_exc()
+    raise
 
 # --------------------  Persian styling  --------------------
 st.set_page_config(
