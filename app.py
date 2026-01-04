@@ -510,6 +510,6 @@ if 'df' in st.session_state:
         else:
             st.warning("❌ داده‌ای برای خروجی گرفتن وجود ندارد")
 
-st.markdown('</div>')  # End RTL
+# st.markdown('</div>')  # End RTL
 
 print("✅ App loaded successfully", file=sys.stderr)
