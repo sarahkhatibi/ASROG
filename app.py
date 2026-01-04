@@ -95,7 +95,7 @@ def load_and_parse(file):
         
         # Convert numeric columns - اضافه کردن ستون‌های گازها برای تحلیل DGA
         num_cols = ['TCG', 'TAN', 'BreakdownVoltage', 'WaterContents', 'DDF',
-                   'hydrogen', 'methane', 'ethane', 'ethylene', 'acetylene',
+                   'hydrogen', 'Methane', 'Ethane', 'Ethylene', 'Acetylene',
                    'CarbonMonoxide', 'CarbonDioxide', 'propane', 'propylene']
         for col in num_cols:
             if col in df.columns:
@@ -180,17 +180,17 @@ def calculate_duval_triangle(row):
     """Calculate Duval Triangle percentages"""
     try:
         # گازهای مورد نیاز برای مثلث دووال
-        gases_needed = ['methane', 'ethane', 'ethylene', 'acetylene']
+        gases_needed = ['Methane', 'Ethane', 'Ethylene', 'Acetylene']
         
         # بررسی وجود ستون‌ها
         missing_gases = [gas for gas in gases_needed if gas not in row.index or pd.isna(row[gas])]
         if missing_gases:
             return None, None, None
         
-        CH4 = float(row['methane'])
-        C2H6 = float(row['ethane'])
-        C2H4 = float(row['ethylene'])
-        C2H2 = float(row['acetylene'])
+        CH4 = float(row['Methane'])
+        C2H6 = float(row['Ethane'])
+        C2H4 = float(row['Ethylene'])
+        C2H2 = float(row['Acetylene'])
         
         # محاسبه مجموع
         total = CH4 + C2H6 + C2H4 + C2H2
@@ -245,17 +245,17 @@ def calculate_ternary_ratios(row):
     """Calculate ratios for ternary plot"""
     try:
         # نسبت‌های راجرز
-        gases_needed = ['hydrogen', 'methane', 'ethane', 'ethylene', 'acetylene']
+        gases_needed = ['hydrogen', 'Methane', 'Ethane', 'Ethylene', 'Acetylene']
         
         missing_gases = [gas for gas in gases_needed if gas not in row.index or pd.isna(row[gas])]
         if missing_gases:
             return None, None, None
         
         H2 = float(row['hydrogen'])
-        CH4 = float(row['methane'])
-        C2H6 = float(row['ethane'])
-        C2H4 = float(row['ethylene'])
-        C2H2 = float(row['acetylene'])
+        CH4 = float(row['Methane'])
+        C2H6 = float(row['Ethane'])
+        C2H4 = float(row['Ethylene'])
+        C2H2 = float(row['Acetylene'])
         
         # جلوگیری از تقسیم بر صفر
         def safe_divide(a, b):
@@ -620,10 +620,10 @@ with st.sidebar:
                 'ASROG': ['بدون عیب', 'حالت 5 : خطای حرارتی', 'تخلیه جزیی', 
                          'تخلیه جزیی', 'خطای حرارتی بیشتر از 700 درجه'],
                 'hydrogen': [75, 394, 157, 176, 23],
-                'methane': [19, 1126, 10, 35, 69],
-                'ethane': [0, 525, 1, 20, 33],
-                'ethylene': [3, 1669, 7, 12, 280],
-                'acetylene': [0, 8, 3, 0, 3],
+                'Methane': [19, 1126, 10, 35, 69],
+                'Ethane': [0, 525, 1, 20, 33],
+                'Ethylene': [3, 1669, 7, 12, 280],
+                'Acetylene': [0, 8, 3, 0, 3],
                 'CarbonMonoxide': [400, 1700, 251, 744, 511],
                 'CarbonDioxide': [1566, 4002, 1044, 3044, 2401]
             }
@@ -829,7 +829,7 @@ if 'df' in st.session_state:
         st.subheader("🔬 تحلیل گازهای محلول (DGA)")
         
         # بررسی وجود ستون‌های گازی
-        required_gases = ['hydrogen', 'methane', 'ethane', 'ethylene', 'acetylene']
+        required_gases = ['hydrogen', 'Methane', 'Ethane', 'Ethylene', 'Acetylene']
         missing_gases = [gas for gas in required_gases if gas not in filtered_df.columns]
         
         if missing_gases:
@@ -866,8 +866,8 @@ if 'df' in st.session_state:
             
             with col4:
                 # درصد ترانس با تخلیه الکتریکی (C2H2 > 0)
-                if 'acetylene' in filtered_df.columns:
-                    discharge_count = (filtered_df['acetylene'] > 0).sum()
+                if 'Acetylene' in filtered_df.columns:
+                    discharge_count = (filtered_df['Acetylene'] > 0).sum()
                     discharge_percent = (discharge_count / len(filtered_df)) * 100 if len(filtered_df) > 0 else 0
                     st.metric("تخلیه الکتریکی", f"{discharge_percent:.1f}%")
                 else:
